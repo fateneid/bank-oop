@@ -129,6 +129,11 @@
   <ItemGroup>
     <ClCompile Include="bank-oop.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="clsDate.h" />
+    <ClInclude Include="clsString.h" />
+    <ClInclude Include="clsUtil.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
