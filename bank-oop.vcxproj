@@ -130,8 +130,10 @@
     <ClCompile Include="bank-oop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="clsBankClient.h" />
     <ClInclude Include="clsDate.h" />
     <ClInclude Include="clsInputValidate.h" />
+    <ClInclude Include="clsPerson.h" />
     <ClInclude Include="clsString.h" />
     <ClInclude Include="clsUtil.h" />
   </ItemGroup>

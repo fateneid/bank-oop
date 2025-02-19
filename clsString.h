@@ -349,9 +349,9 @@ public:
 
 			sWord = MyString.substr(0, pos);
 
-			if (sWord != "") {
+			//if (sWord != "") {
 				vSplitString.push_back(sWord);
-			}
+			//}
 
 			MyString.erase(0, pos + split.length());
 		}
