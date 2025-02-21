@@ -34,6 +34,86 @@ private:
 
 	}
 
+	static vector <clsBankClient> _LoadClientsDataFromFile() {
+
+		vector<clsBankClient> vClients;
+
+		fstream MyFile;
+		MyFile.open("Clients.txt", ios::in);
+
+		if (MyFile.is_open()) {
+
+			string Line;
+
+			while (getline(MyFile, Line)) {
+
+				vClients.push_back(_ConvertLinetoClientObject(Line));
+
+			}
+
+			MyFile.close();
+
+		}
+
+		return vClients;
+
+	}
+
+	static string _ConverClientObjectToLine(clsBankClient Client, string Seperator = "#//#") {
+
+		string DataLine = "";
+
+		DataLine += Client.FirstName + Seperator;
+		DataLine += Client.LastName + Seperator;
+		DataLine += Client.Email + Seperator;
+		DataLine += Client.Phone + Seperator;
+		DataLine += Client.AccountNumber() + Seperator;
+		DataLine += Client.PinCode + Seperator;
+		DataLine += to_string(Client.AccountBalance);
+
+		return DataLine;
+
+	}
+
+	static void _SaveClientsDataToFile(vector <clsBankClient> vClients) {
+
+		fstream MyFile;
+		MyFile.open("Clients.txt", ios::out);
+
+		if (MyFile.is_open()) {
+
+			string DataLine;
+
+			for (clsBankClient C : vClients) {
+
+				DataLine = _ConverClientObjectToLine(C);
+				MyFile << DataLine << endl;
+
+			}
+
+			MyFile.close();
+
+
+		}
+
+
+	}
+
+	void _Update() {
+
+		vector<clsBankClient> _vClients = _LoadClientsDataFromFile();
+
+		for (clsBankClient& C : _vClients) {
+			if (C.AccountNumber() == AccountNumber()) {
+				C = *this;
+				break;
+			}
+		}
+
+		_SaveClientsDataToFile(_vClients);
+
+	}
+
 
 public:
 
@@ -149,6 +229,29 @@ public:
 
 		return (!Client.IsEmpty());
 
+	}
+
+	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1 };
+
+	enSaveResults Save() {
+
+		switch (_Mode)
+		{
+
+		case enMode::EmptyMode:
+		{
+			return enSaveResults::svFaildEmptyObject;
+
+		}
+		case enMode::UpdateMode:
+		{
+			_Update();
+			return enSaveResults::svSucceeded;
+
+		}
+
+		}
+	
 	}
 
 };

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsDate.h"
 #include "clsUtil.h"
+#include <string>
 using namespace std;
 
 class clsInputValidate
@@ -21,6 +22,17 @@ public:
 		return Number;
 	}
 
+	static float ReadFloatNumber(string ErrorMessage = "Invalid Number, Enter again\n")
+	{
+		float Number;
+		while (!(cin >> Number)) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << ErrorMessage;
+		}
+		return Number;
+	}
+
 	static double ReadDblNumber(string ErrorMessage = "Invalid Number, Enter again\n") {
 
 		double Number;
@@ -32,7 +44,7 @@ public:
 		}
 		return Number;
 	}
-
+	
 	static int ReadIntNumberBetween(int From, int To, string ErrorMessage = "Number is not within range, Enter again:\n") {
 
 		int Num = ReadIntNumber();
@@ -42,6 +54,17 @@ public:
 			Num = ReadIntNumber();
 		}
 		return Num;
+	}
+
+	static float ReadFloatNumberBetween(float From, float To, string ErrorMessage = "Number is not within range, Enter again:\n")
+	{
+		float Number = ReadFloatNumber();
+
+		while (!IsNumberBetween(Number, From, To)) {
+			cout << ErrorMessage;
+			Number = ReadDblNumber();
+		}
+		return Number;
 	}
 
 	static double ReadDblNumberBetween(double From, double To, string ErrorMessage = "Number is not within range, Enter again:\n") {
@@ -86,6 +109,15 @@ public:
 	static bool IsValidDate(clsDate Date) {
 
 		return clsDate::IsAValidDate(Date);
+
+	}
+
+	static string ReadString(string Message = "") {
+
+		string S1 = "";
+		cout << Message;
+		getline(cin >> ws, S1);
+		return S1;
 
 	}
 
