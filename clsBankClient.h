@@ -11,9 +11,9 @@ class clsBankClient : public clsPerson
 {
 private:
 
-	enum enMode { EmptyMode = 0, UpdateMode = 1 };
-	enMode _Mode;
+	enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
 
+	enMode _Mode;
 	string _AccountNumber;
 	string _PinCode;
 	float  _AccountBalance;
@@ -111,6 +111,27 @@ private:
 		}
 
 		_SaveClientsDataToFile(_vClients);
+
+	}
+
+	void _AddDataLineToFile(string DataLine) {
+
+		fstream MyFile;
+		MyFile.open("Clients.txt", ios::out | ios::app);
+
+		if (MyFile.is_open()) {
+
+			MyFile << DataLine << endl;
+
+			MyFile.close();
+
+		}
+
+	}
+
+	void _AddNew() {
+
+		return _AddDataLineToFile(_ConverClientObjectToLine(*this));
 
 	}
 
@@ -231,7 +252,7 @@ public:
 
 	}
 
-	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1 };
+	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1, svFaildAccountNumberExists = 2 };
 
 	enSaveResults Save() {
 
@@ -240,7 +261,11 @@ public:
 
 		case enMode::EmptyMode:
 		{
-			return enSaveResults::svFaildEmptyObject;
+			if (IsEmpty()) {
+
+				return enSaveResults::svFaildEmptyObject;
+
+			}
 
 		}
 		case enMode::UpdateMode:
@@ -249,9 +274,25 @@ public:
 			return enSaveResults::svSucceeded;
 
 		}
+		case enMode::AddNewMode:
+
+			if (IsClientExist(_AccountNumber)) {
+				return enSaveResults::svFaildAccountNumberExists;
+			}
+			else {
+				_AddNew();
+				_Mode = enMode::UpdateMode;
+				return enSaveResults::svSucceeded;
+			}
 
 		}
 	
+	}
+
+	static clsBankClient GetAddNewClientObject(string AccountNumber) {
+
+		return clsBankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
+
 	}
 
 };
