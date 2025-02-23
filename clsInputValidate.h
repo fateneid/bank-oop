@@ -121,5 +121,12 @@ public:
 
 	}
 
+	static bool AskYesNo(string Message) {
+		char Answer;
+		cout << Message;
+		cin >> Answer;
+		return toupper(Answer) == 'Y' ? true : false;
+	}
+
 };
 
