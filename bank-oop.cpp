@@ -4,46 +4,6 @@
 #include "clsMainScreen.h"
 using namespace std;
 
-//void UpdateClient() {
-//
-//	string AccountNumber = "";
-//
-//	AccountNumber = clsInputValidate::ReadString("\nPlease Enter client Account Number: ");
-//
-//	while (!clsBankClient::IsClientExist(AccountNumber)) {
-//		AccountNumber = clsInputValidate::ReadString("\nAccount number is not found, choose another one: ");
-//	}
-//
-//	clsBankClient Client1 = clsBankClient::Find(AccountNumber);
-//	Client1.Print();
-//
-//	cout << "\n\nUpdate Client Info:";
-//	cout << "\n____________________\n";
-//
-//	ReadClientInfo(Client1);
-//
-//	clsBankClient::enSaveResults SaveResult = Client1.Save();
-//
-//	switch (SaveResult)
-//	{
-//	case clsBankClient::enSaveResults::svSucceeded:
-//	{
-//		cout << "\nAccount Updated Successfully :-)\n";
-//		Client1.Print();
-//		break;
-//	}
-//	case clsBankClient::enSaveResults::svFaildEmptyObject:
-//	{
-//		cout << "\nError account was not saved because it's Empty";
-//		break;
-//	}
-//
-//	}
-//
-//
-//}
-//
-//
 //void PrintClientRecordBalanceLine(clsBankClient Client) {
 //
 //	cout << "| " << setw(15) << left << Client.AccountNumber();
