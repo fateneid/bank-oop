@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "clsInputValidate.h"
 #include "clsDepositScreen.h"
+#include "clsWithdrawScreen.h"
 using namespace std;
 
 class clsTransactionsScreen : protected clsScreen
@@ -14,7 +15,7 @@ private:
         eDeposit = 1, eWithdraw = 2,
         eShowTotalBalance = 3, eShowMainMenue = 4
     };
-
+    
     static short ReadTransactionsMenueOption() {
         cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 4]? ";
         short Choice = clsInputValidate::ReadShortNumberBetween(1, 4, "Enter Number between 1 to 4? ");
@@ -31,7 +32,10 @@ private:
 
     static void _ShowWithdrawScreen()
     {
-        cout << "\n Withdraw Screen will be here.\n";
+        //cout << "\n Withdraw Screen will be here.\n";
+
+        clsWithdrawScreen::ShowWithdrawScreen();
+
     }
 
     static void _ShowTotalBalancesScreen()
