@@ -1,6 +1,8 @@
 #pragma once
 #include "clsScreen.h"
 #include <iostream>
+#include "clsUser.h"
+#include "clsInputValidate.h" 
 using namespace std;
 
 class clsAddNewUserScreen : protected clsScreen
@@ -21,7 +23,7 @@ private:
     static void _PrintUser(clsUser User)
     {
         cout << "\nUser Card:";
-        cout << "\n___________________";
+        cout << "\n___________________________________";
         cout << "\nFirstName   : " << User.FirstName;
         cout << "\nLastName    : " << User.LastName;
         cout << "\nFull Name   : " << User.FullName();
@@ -30,11 +32,58 @@ private:
         cout << "\nUser Name   : " << User.UserName;
         cout << "\nPassword    : " << User.Password;
         cout << "\nPermissions : " << User.Permissions;
-        cout << "\n___________________\n";
+        cout << "\n___________________________________\n";
 
     }
 
     static int _ReadPermissionsToSet() {
+
+        int Permissions = 0;
+
+        if (clsInputValidate::AskYesNo("\nDo you want to give full access? y/n? "))
+        {
+            return -1;
+        }
+
+        cout << "\nDo you want to give access to : \n ";
+
+        if (clsInputValidate::AskYesNo("\nShow Client List? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pListClients;
+        }
+
+        if (clsInputValidate::AskYesNo("\nAdd New Client? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pAddNewClient;
+        }
+
+        if (clsInputValidate::AskYesNo("\nDelete Client? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pDeleteClient;
+        }
+
+        if (clsInputValidate::AskYesNo("\nUpdate Client? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pUpdateClients;
+        }
+
+        if (clsInputValidate::AskYesNo("\nFind Client? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pFindClient;
+        }
+
+        if (clsInputValidate::AskYesNo("\nTransactions? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pTranactions;
+        }
+
+        if (clsInputValidate::AskYesNo("\nManage Users? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pManageUsers;
+        }
+
+        return Permissions;
+
 
     }
 
@@ -56,7 +105,28 @@ public:
 
         clsUser::enSaveResults SaveResult = NewUser.Save();
 
+        switch (SaveResult)
+        {
+        case clsUser::enSaveResults::svSucceeded:
+        {
+            cout << "\nUser Addeded Successfully :-)\n";
+            _PrintUser(NewUser);
+            break;
+        }
+        case clsUser::enSaveResults::svFaildEmptyObject:
+        {
+            cout << "\nError User was not saved because it's Empty";
+            break;
 
+        }
+        case clsUser::enSaveResults::svFaildUserExists:
+        {
+            cout << "\nError User was not saved because UserName is used!\n";
+            break;
+
+        }
+
+        }
     }
 
 };
