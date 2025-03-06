@@ -71,7 +71,7 @@ public:
 
 	void Print() {
 
-		cout << DateStructureToString() << '\n';
+		cout << DateToString() << '\n';
 
 	}
 
@@ -944,14 +944,14 @@ public:
 
 	}
 
-	static string DateStructureToString(clsDate Date) {
+	static string DateToString(clsDate Date) {
 
 		return to_string(Date.Day) + '/' + to_string(Date.Month) + '/' + to_string(Date.Year);
 
 	}
 
-	string DateStructureToString() {
-		return DateStructureToString(*this);
+	string DateToString() {
+		return DateToString(*this);
 	}
 
 	static string FormatDate(clsDate Date, string Format = "dd/mm/yyyy") {

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsUser.h"
 #include "Global.h"
+#include "clsDate.h" 
 using namespace std;
 
 class clsScreen
@@ -18,9 +19,13 @@ protected:
         {
             cout << "\n\t\t\t\t\t  " << SubTitle;
         }
-        cout << "\n\t\t\t\t\t______________________________________\n\n";
+        cout << "\n\t\t\t\t\t______________________________________\n";
 
 
+        cout << "\n\t\t\t\t\tUser: " << CurrentUser.UserName;
+        cout << "\n\t\t\t\t\tDate: " << clsDate::DateToString(clsDate());
+        cout << "\n\n";
+        
 	}
 
     static bool CheckAccessRights(clsUser::enPermissions Permission) {
