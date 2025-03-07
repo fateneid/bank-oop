@@ -18,7 +18,7 @@ private:
 public:
 
 	clsDate() {
-		*this = GetCurrentDate();
+		*this = GetSystemDate();
 	}
 
 	clsDate(string Date) {
@@ -402,7 +402,7 @@ public:
 		return GetDiffrenceInDays(*this, Date2, IncludeEndDay);
 	}
 
-	static clsDate GetCurrentDate() {
+	static clsDate GetSystemDate() {
 
 		time_t t = time(0);
 		tm* now = localtime(&t);
@@ -416,9 +416,30 @@ public:
 		return clsDate(Day, Month, Year);
 	}
 
+	static string GetSystemDateTimeString() {
+
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		short Day, Month, Year, Hour, Minute, Second;
+
+		Day = now->tm_mday;
+		Month = now->tm_mon + 1;
+		Year = now->tm_year + 1900;
+		Hour = now->tm_hour;
+		Minute = now->tm_min;
+		Second = now->tm_sec;
+
+		return (to_string(Day) + "/" + to_string(Month) + "/"
+			+ to_string(Year) + " - "
+			+ to_string(Hour) + ":" + to_string(Minute)
+			+ ":" + to_string(Second));
+
+	}
+
 	static int YourAgeInDays(clsDate BirthDate) {
 
-		clsDate CurrentDate = GetCurrentDate();
+		clsDate CurrentDate = GetSystemDate();
 		return GetDiffrenceInDays(CurrentDate, BirthDate);
 
 	}
