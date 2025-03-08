@@ -82,8 +82,12 @@ private:
             Permissions += clsUser::enPermissions::pManageUsers;
         }
 
-        return Permissions;
+        if (clsInputValidate::AskYesNo("\nShow Login Register? y/n? "))
+        {
+            Permissions += clsUser::enPermissions::pShowLogInRegister;
+        }
 
+        return Permissions;
 
     }
 
