@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include "Global.h"
 using namespace std;
 
 class clsBankClient : public clsPerson
@@ -135,6 +136,38 @@ private:
 	void _AddNew() {
 
 		return _AddDataLineToFile(_ConverClientObjectToLine(*this));
+
+	}
+
+	string _PrepareTransferLogRecord(double Amount, clsBankClient DestinationClient, string Seperator = "#//#") {
+
+		string TransferLogRecord = "";
+		TransferLogRecord += clsDate::GetSystemDateTimeString() + Seperator;
+		TransferLogRecord += AccountNumber() + Seperator;
+		TransferLogRecord += DestinationClient.AccountNumber() + Seperator;
+		TransferLogRecord += to_string(Amount) + Seperator;
+		TransferLogRecord += to_string(AccountBalance) + Seperator;
+		TransferLogRecord += to_string(DestinationClient.AccountBalance) + Seperator;
+		TransferLogRecord += CurrentUser.UserName;
+
+		return TransferLogRecord;
+
+	}
+
+	void _RegisterTransferLog(double Amount, clsBankClient DestinationClient) {
+
+		string DataLine = _PrepareTransferLogRecord(Amount, DestinationClient);
+
+		fstream MyFile;
+		MyFile.open("TransferLog.txt", ios::out | ios::app);
+
+		if (MyFile.is_open()) {
+
+			MyFile << DataLine << endl;
+
+			MyFile.close();
+
+		}
 
 	}
 
@@ -356,6 +389,7 @@ public:
 		else {
 			Withdraw(Amount);
 			DestinationClient.Deposit(Amount);
+			_RegisterTransferLog(Amount, DestinationClient);
 			return true;
 		}
 
