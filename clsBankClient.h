@@ -28,7 +28,7 @@ private:
 		vClientData = clsString::SplitString(Line, Seperator);
 
 		return clsBankClient(enMode::UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3],
-			vClientData[4], vClientData[5], stod(vClientData[6]));
+			vClientData[4], clsUtil::DecryptText(vClientData[5]), stod(vClientData[6]));
 
 	}
 
@@ -72,7 +72,7 @@ private:
 		DataLine += Client.Email + Seperator;
 		DataLine += Client.Phone + Seperator;
 		DataLine += Client.AccountNumber() + Seperator;
-		DataLine += Client.PinCode + Seperator;
+		DataLine += clsUtil::EncryptText(Client.PinCode) + Seperator;
 		DataLine += to_string(Client.AccountBalance);
 
 		return DataLine;

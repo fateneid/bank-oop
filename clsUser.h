@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include "clsDate.h"
+#include "clsUtil.h"
 using namespace std;
 
 class clsUser : public clsPerson
@@ -27,7 +28,7 @@ private:
 		vUserData = clsString::SplitString(Line, Seperator);
 
 		return clsUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3],
-			vUserData[4], vUserData[5], stoi(vUserData[6]));
+			vUserData[4], clsUtil::DecryptText(vUserData[5]), stoi(vUserData[6]));
 
 	}
 
@@ -71,7 +72,7 @@ private:
 		DataLine += User.Email + Seperator;
 		DataLine += User.Phone + Seperator;
 		DataLine += User.UserName + Seperator;
-		DataLine += User.Password + Seperator;
+		DataLine += clsUtil::EncryptText(User.Password) + Seperator;
 		DataLine += to_string(User.Permissions);
 
 		return DataLine;
@@ -145,7 +146,7 @@ private:
 		string LoginRecord = "";
 		LoginRecord += clsDate::GetSystemDateTimeString() + Seperator;
 		LoginRecord += UserName + Seperator;
-		LoginRecord += Password + Seperator;
+		LoginRecord += clsUtil::EncryptText(Password) + Seperator;
 		LoginRecord += to_string(Permissions);
 
 		return LoginRecord;
@@ -155,12 +156,11 @@ private:
 	static stLoginRegisterRecord _ConvertLoginRegisterLineToRecord(string Line, string Seperator = "#//#") {
 
 		vector <string> LoginRegisterDataLine = clsString::SplitString(Line, Seperator);
-
 		stLoginRegisterRecord LoginRegisterRecord;
 
 		LoginRegisterRecord.DateTime = LoginRegisterDataLine[0];
 		LoginRegisterRecord.UserName = LoginRegisterDataLine[1];
-		LoginRegisterRecord.Password = LoginRegisterDataLine[2];
+		LoginRegisterRecord.Password = clsUtil::DecryptText(LoginRegisterDataLine[2]);
 		LoginRegisterRecord.Permissions = stoi(LoginRegisterDataLine[3]);
 
 		return LoginRegisterRecord;
@@ -390,7 +390,6 @@ public:
 	}
 
 	static vector <stLoginRegisterRecord> GetLoginRegisterList() {
-
 
 		vector<stLoginRegisterRecord> vLoginRegisterRecord;
 
