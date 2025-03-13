@@ -38,7 +38,7 @@ private:
 		return CurrencyRecord;
 	}
 
-	static  vector <clsCurrency> _LoadCurrencysDataFromFile()
+	static vector <clsCurrency> _LoadCurrencysDataFromFile()
 	{
 
 		vector <clsCurrency> vCurrencies;
@@ -118,7 +118,6 @@ public:
 		_CurrencyCode = CurrencyCode;
 		_CurrencyName = CurrencyName;
 		_Rate = Rate;
-
 	}
 
 	bool IsEmpty()
@@ -152,7 +151,7 @@ public:
 		return _Rate;
 	}
 
-	static   clsCurrency FindByCode(string CurrencyCode)
+	static clsCurrency FindByCode(string CurrencyCode)
 	{
 
 		CurrencyCode = clsString::UpperAllLettersOfAString(CurrencyCode);
@@ -181,7 +180,7 @@ public:
 
 	}
 
-	static   clsCurrency FindByCountry(string Country)
+	static clsCurrency FindByCountry(string Country)
 	{
 		Country = clsString::UpperAllLettersOfAString(Country);
 
