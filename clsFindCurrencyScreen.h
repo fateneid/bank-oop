@@ -32,7 +32,7 @@ public:
 		short Answer = clsInputValidate::ReadShortNumberBetween(1, 2, "\nChoose between 1 and 2? ");
 
 		clsCurrency Currency = Answer == 1 ?
-			clsCurrency::FindByCode(clsInputValidate::ReadString("\nPlease Enter Country Code: ")) :
+			clsCurrency::FindByCode(clsInputValidate::ReadString("\nPlease Enter Currency Code: ")) :
 			clsCurrency::FindByCountry(clsInputValidate::ReadString("\nPlease Enter Country Name: "));
 
 		if (!Currency.IsEmpty()) {
