@@ -42,7 +42,7 @@ public:
 		_PrintClient(Client1);
 
 		cout << "\nPlease enter deposit amount? ";
-		double Amount = clsInputValidate::ReadDblNumber();
+		double Amount = clsInputValidate::ReadNumber<double>();
 
 		if (clsInputValidate::AskYesNo("\nAre you sure you want to perform this transaction? ")) {
 			Client1.Deposit(Amount);

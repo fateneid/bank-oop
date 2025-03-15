@@ -29,7 +29,7 @@ public:
 		_DrawScreenHeader("\t  Find Currency Screen");
 
 		cout << "\nFind By: [1] Code or [2] Country ? ";
-		short Answer = clsInputValidate::ReadShortNumberBetween(1, 2, "\nChoose between 1 and 2? ");
+		short Answer = clsInputValidate::ReadNumberBetween<short>(1, 2, "\nChoose between 1 and 2? ");
 
 		clsCurrency Currency = Answer == 1 ?
 			clsCurrency::FindByCode(clsInputValidate::ReadString("\nPlease Enter Currency Code: ")) :

@@ -69,7 +69,7 @@ public:
 			clsCurrency CurrencyTo = _GetCurrency("\nPlease Enter Currency2 Code:\n");
 
 			cout << "\nEnter Amount to Exchange: ";
-			float Amount = clsInputValidate::ReadFloatNumber();
+			float Amount = clsInputValidate::ReadNumber<float>();
 
 			_PrintCalculationsResults(Amount, CurrencyFrom, CurrencyTo);
 

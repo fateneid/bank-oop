@@ -42,7 +42,7 @@ public:
 			cout << "\n____________________\n";
 
 			cout << "\nEnter New Rate: ";
-			Currency.UpdateRate(clsInputValidate::ReadFloatNumber());
+			Currency.UpdateRate(clsInputValidate::ReadNumber<float>());
 
 			cout << "\nCurrency Rate Updated Successfully :-)\n";
 			_PrintCurrency(Currency);

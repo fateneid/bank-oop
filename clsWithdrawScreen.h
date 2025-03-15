@@ -43,7 +43,7 @@ public:
 		_PrintClient(Client1);
 
 		cout << "\nPlease enter Withdraw amount? ";
-		double Amount = clsInputValidate::ReadDblNumber();
+		double Amount = clsInputValidate::ReadNumber<double>();
 
 		if (clsInputValidate::AskYesNo("\nAre you sure you want to perform this transaction? ")) {
 			if (Client1.Withdraw(Amount)) {
